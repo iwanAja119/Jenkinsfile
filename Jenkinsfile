@@ -3,7 +3,7 @@ pipeline {
     environment {
         IMAGE_NAME = 'ihs4n/simple-app'
         REGISTRY_CREDENTIALS = 'dockerhub-credentials'
-        DOCKER_BIN = 'C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe'
+        DOCKER_BIN = 'C:\\Users\\icanm\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe'
     }
     stages {
         stage('Checkout') {

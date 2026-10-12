@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Mengambil kode terbaru dari GitHub...'
+                echo 'Mengambil kode terbaru dari GitHub tes tes 123...'
             }
         }
         stage('Build') {

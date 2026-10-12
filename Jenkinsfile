@@ -4,12 +4,12 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Mengambil kode terbaru dari GitHub tes tes 123...'
+                echo 'Mengambil kode terbaru dari GitHub tes lagi run ke 02...'
             }
         }
         stage('Build') {
             steps {
-                echo 'Mengompilasi / menyiapkan aplikasi...'
+                echo 'Mengompilasi / menyiapkan aplikasi tes tes run ke 02 setelah salah tadi wkwk :>...'
             }
         }
         stage('Test') {

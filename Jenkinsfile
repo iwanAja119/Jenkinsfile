@@ -1,25 +1,30 @@
 pipeline {
     agent any
-
+    environment {
+        IMAGE_NAME = 'ihs4n/simple-app'
+        REGISTRY_CREDENTIALS = 'dockerhub-credentials'
+    }
     stages {
         stage('Checkout') {
-            steps {
-                echo 'Mengambil kode terbaru dari GitHub tes lagi run ke 02...'
-            }
+            steps { checkout scm }
         }
         stage('Build') {
+            steps { bat 'echo "Build di windows"' }
+        }
+        stage('Build Docker Image') {
             steps {
-                echo 'Mengompilasi / menyiapkan aplikasi tes tes run ke 02 setelah salah tadi wkwk :>...'
+                bat 'docker build -t %IMAGE_NAME%:%BUILD_NUMBER% .'
             }
         }
-        stage('Test') {
+        stage('Push Docker Image') {
             steps {
-                echo 'Menjalankan unit testing otomatis...'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Mendeploy aplikasi ke server target...'
+                withCredentials([usernamePassword(credentialsId: REGISTRY_CREDENTIALS,
+                    usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    bat 'docker login -u %USER% -p %PASS%'
+                    bat 'docker push %IMAGE_NAME%:%BUILD_NUMBER%'
+                    bat 'docker tag %IMAGE_NAME%:%BUILD_NUMBER% %IMAGE_NAME%:latest'
+                    bat 'docker push %IMAGE_NAME%:latest'
+                }
             }
         }
     }
